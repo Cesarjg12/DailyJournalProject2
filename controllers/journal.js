@@ -1,5 +1,4 @@
 const Journal = require('../models/journal');
-// const Performer = require('../models/performer');
 
 module.exports = {
   index,
@@ -9,12 +8,18 @@ module.exports = {
 };
 
 async function index(req, res) {
-  const journal = await Journal.find({});
-  res.render('journals/index', { title: 'Daily Journals', journals });
+  try {
+    const journals = await Journal.find({});
+    res.render('journals/index', { title: 'Daily Journals', journals: journals });
+  } catch (err) {
+    console.log(err);
+    res.render('error', { message: 'Error retrieving journals' });
+  }
 }
 
+
 async function show(req, res) {
-  const journal = await Journal.findById(req.params.id).populate('cast');
+  const journal = await Journal.findById(req.params.id);
   res.render('journals/show', { title: 'Journal Detail', journal });
 }
 

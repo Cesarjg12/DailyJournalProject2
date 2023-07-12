@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const passport = require('passport');
+var journalCtrl = require('../controllers/journal');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -34,5 +35,7 @@ router.get('/logout', function(req, res){
     res.redirect('/journals');
   });
 });
+
+router.get('/journals', journalCtrl.index);
 
 module.exports = router;
