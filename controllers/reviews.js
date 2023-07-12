@@ -1,3 +1,24 @@
+const Journal = require('../models/journal');
+
+module.exports = {
+    create,
+    delete: deleteReview
+};
+
+
+async function deleteReview(req, res) {
+    // Note the cool "dot" syntax to query on the property of a subdoc
+    const journal = await Journal.findOne({ 'reviews._id': req.params.id, 'reviews.user': req.user._id });
+    // Rogue user!
+    if (!journal) return res.redirect('/journals');
+    // Remove the review using the remove method available on Mongoose arrays
+    journal.reviews.remove(req.params.id);
+    // Save the updated movie doc
+    await journal.save();
+    // Redirect back to the movie's show view
+    res.redirect(`/journals/${journal._id}`);
+  }
+
 async function create(req, res) {
     const journal = await Journal.findById(req.params.id);
   

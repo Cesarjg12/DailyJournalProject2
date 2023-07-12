@@ -13,16 +13,10 @@ async function index(req, res) {
   res.render('journals/index', { title: 'Daily Journals', journals });
 }
 
-// async function show(req, res) {
-//   // Populate the cast array with performer docs instead of ObjectIds
-//   const journal = await Journal.findById(req.params.id).populate('cast');
-//   // Mongoose query builder approach to retrieve performers not the movie:
-//     // Performer.find({}).where('_id').nin(movie.cast)
-//   // The native MongoDB approach uses a query object to find 
-//   // performer docs whose _ids are not in the movie.cast array like this:
-//   const comments = await Comments.find({ _id: { $nin: movie.cast } }).sort('name');
-//   res.render('movies/show', { title: 'Movie Detail', movie, performers });
-// }
+async function show(req, res) {
+  const journal = await Journal.findById(req.params.id).populate('cast');
+  res.render('journals/show', { title: 'Journal Detail', journal });
+}
 
 function newJournal(req, res) {
   // We'll want to be able to render an  
