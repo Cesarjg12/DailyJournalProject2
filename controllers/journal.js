@@ -7,7 +7,8 @@ module.exports = {
   create,
   edit,
   update,
-  deleteJournal
+  deleteJournal,
+  addComment
 };
 
 async function index(req, res) {
@@ -23,7 +24,7 @@ async function index(req, res) {
 
 async function show(req, res) {
   try {
-    const journal = await Journal.findById(req.params.id).populate('reviews');
+    const journal = await Journal.findById(req.params.id).populate('comments');
     if (!journal) {
       throw new Error('Journal not found');
     }
@@ -99,5 +100,27 @@ async function deleteJournal(req, res) {
   } catch (err) {
     console.log(err);
     res.render('error', { message: 'Error deleting journal', error: err });
+  }
+}
+
+async function addComment(req, res) {
+  try {
+    const journal = await Journal.findById(req.params.id);
+    if (!journal) {
+      throw new Error('Journal not found');
+    }
+    const { content } = req.body;
+    const comment = {
+      content,
+      user: req.user._id,
+      userName: req.user.name,
+      userAvatar: req.user.avatar
+    };
+    journal.comments.push(comment);
+    await journal.save();
+    res.redirect(`/journals/${journal._id}`);
+  } catch (err) {
+    console.log(err);
+    res.render('error', { message: 'Error adding comment', error: err });
   }
 }

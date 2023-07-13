@@ -3,6 +3,24 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Review = require('../models/review');
 
+
+
+const commentSchema = new Schema({
+  content: {
+    type: String,
+    required: true
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  userName: String,
+  userAvatar: String
+}, {
+  timestamps: true
+});
+
   const journalSchema = new Schema({
     title: {
       type: String,
@@ -17,12 +35,12 @@ const Review = require('../models/review');
     eveningEntry: {
       type: String
     },
-    reviews: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Review'
-    }]
+    comments: [commentSchema]
+    
   }, {
     timestamps: true
   });
+
+
 
   module.exports = mongoose.model('Journal', journalSchema);

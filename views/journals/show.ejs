@@ -17,33 +17,30 @@
   <p><%= journal.eveningEntry %></p>
 </div>
 
-<h3>Reviews</h3>
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Date</th>
-      <th>Review</th>
-      <th>Rating</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% if (journal.reviews.length === 0) { %>
-      <tr>
-        <td colspan="4">No reviews yet</td>
-      </tr>
-    <% } else { %>
-      <% journal.reviews.forEach(function(review) { %>
-        <tr>
-          <td><img alt="avatar" src="<%= review.userAvatar %>" referrerpolicy="no-referrer"><%= review.userName %></td>
-          <td><%= review.createdAt.toDateString() %></td>
-          <td><%= review.content %></td>
-          <td><%= review.rating %></td>
-        </tr>
-      <% }) %>
-    <% } %>
-  </tbody>
-</table>
+<h3>Comments</h3>
+<% if (journal.comments.length === 0) { %>
+  <p>No comments yet</p>
+<% } else { %>
+  <ul>
+    <% journal.comments.forEach(function(comment) { %>
+      <li>
+        <img alt="avatar" src="<%= comment.userAvatar %>" referrerpolicy="no-referrer">
+        <p><strong>User: </strong><%= comment.userName %></p>
+        <p><strong>Date: </strong><%= comment.createdAt.toDateString() %></p>
+        <p><strong>Comment: </strong><%= comment.content %></p>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<h3>Add Comment</h3>
+<form action="/journals/<%= journal._id %>/comments" method="POST">
+  <div>
+    <label for="commentContent">Content:</label>
+    <textarea id="commentContent" name="content" rows="3" required></textarea>
+  </div>
+  <button type="submit">Add Comment</button>
+</form>
 
 <div>
   <a href="/journals/<%= journal._id %>/edit">Edit Journal</a>
