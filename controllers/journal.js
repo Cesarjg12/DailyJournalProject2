@@ -19,8 +19,16 @@ async function index(req, res) {
 
 
 async function show(req, res) {
-  const journal = await Journal.findById(req.params.id);
-  res.render('journals/show', { title: 'Journal Detail', journal });
+  try {
+    const journal = await Journal.findById(req.params.id).populate('reviews');
+    if (!journal) {
+      throw new Error('Journal not found');
+    }
+    res.render('journals/show', { title: 'Journal Detail', journal });
+  } catch (err) {
+    console.log(err);
+    res.render('error', { message: 'Error retrieving journal details', error: err });
+  }
 }
 
 function newJournal(req, res) {

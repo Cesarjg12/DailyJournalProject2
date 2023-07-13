@@ -40,5 +40,6 @@ router.get('/logout', function(req, res){
 router.get('/journals', journalCtrl.index);
 router.post('/journals', ensureLoggedIn, journalCtrl.create);
 router.get('/journals/new', ensureLoggedIn, journalCtrl.new);
+router.get('/journals/:id', journalCtrl.show);
 
 module.exports = router;
