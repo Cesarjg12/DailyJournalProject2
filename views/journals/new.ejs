@@ -1,20 +1,25 @@
 <%- include('../partials/header') %>
 
-<form id="new-form" action="/movies" method="POST">
-  <label>Title:</label>
-  <input type="text" name="title">
-  <label>Release Year:</label>
-  <input type="text" name="releaseYear">
-  <label>MPAA Rating</label>
-  <select name="mpaaRating">
-    <option value="G">G</option>
-    <option value="PG">PG</option>
-    <option value="PG-13">PG-13</option>
-    <option value="R">R</option>
-  </select>
-  <label>Now Showing:</label>
-  <input type="checkbox" name="nowShowing" checked>
-  <input type="submit" value="Add Movie">
+<h2>Create New Journal Entry</h2>
+
+<form action="/journals" method="POST">
+  <div>
+    <label for="title">Date:</label>
+    <input type="text" id="title" name="title" required>
+  </div>
+  <div>
+    <label for="morningEntry">Morning Entry:</label>
+    <textarea id="morningEntry" name="morningEntry" rows="4" required></textarea>
+  </div>
+  <div>
+    <label for="noonEntry">Noon Entry:</label>
+    <textarea id="noonEntry" name="noonEntry" rows="4" required></textarea>
+  </div>
+  <div>
+    <label for="eveningEntry">Evening Entry:</label>
+    <textarea id="eveningEntry" name="eveningEntry" rows="4" required></textarea>
+  </div>
+  <button type="submit">Create Entry</button>
 </form>
 
 <%- include('../partials/footer') %>

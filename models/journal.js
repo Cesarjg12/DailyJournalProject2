@@ -26,23 +26,9 @@ const reviewSchema = new Schema({
 
   const journalSchema = new Schema({
     title: { type: String, required: true },
-    releaseYear: {
-      type: Number,
-      default: function() {
-        return new Date().getFullYear();
-      },
-      min: 1927
-    },
-    mpaaRating: {
-      type: String,
-      enum: ['G', 'PG', 'PG-13', 'R']
-    },
-    cast: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Performer'
-    }],
-    nowShowing: { type: Boolean, default: true },
-    reviews: [reviewSchema]
+    morningEntry: String,
+    noonEntry: String,
+    eveningEntry: String
   }, {
     timestamps: true
   });

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const passport = require('passport');
+var ensureLoggedIn = require('../config/ensureLoggedIn');
 var journalCtrl = require('../controllers/journal');
 
 /* GET home page. */
@@ -37,5 +38,7 @@ router.get('/logout', function(req, res){
 });
 
 router.get('/journals', journalCtrl.index);
+router.post('/journals', ensureLoggedIn, journalCtrl.create);
+router.get('/journals/new', ensureLoggedIn, journalCtrl.new);
 
 module.exports = router;

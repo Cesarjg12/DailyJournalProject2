@@ -24,26 +24,31 @@ async function show(req, res) {
 }
 
 function newJournal(req, res) {
-  // We'll want to be able to render an  
-  // errorMsg if the create action fails
-  res.render('journals/new', { title: 'Enter new journal', errorMsg: '' });
+  res.render('journals/new', {
+    title: 'Enter new journal',
+    errorMsg: '',
+    morningEntry: '',
+    noonEntry: '',
+    eveningEntry: ''
+  });
 }
 
 async function create(req, res) {
-  // convert nowShowing's checkbox of nothing or "on" to boolean
-  req.body.nowShowing = !!req.body.nowShowing;
-  // Remove empty properties so that defaults will be applied
-  for (let key in req.body) {
-    if (req.body[key] === '') delete req.body[key];
-  }
   try {
-    // Update this line because now we need the _id of the new movie
-    const journal = await Journal.create(req.body);
-    // Redirect to the new movie's show functionality 
+    const journal = await Journal.create({
+      title: req.body.title,
+      morningEntry: req.body.morningEntry,
+      noonEntry: req.body.noonEntry,
+      eveningEntry: req.body.eveningEntry
+    });
     res.redirect(`/journals/${journal._id}`);
   } catch (err) {
-    // Typically some sort of validation error
     console.log(err);
-    res.render('journals/new', { errorMsg: err.message });
+    res.render('journals/new', {
+      errorMsg: err.message,
+      morningEntry: req.body.morningEntry,
+      noonEntry: req.body.noonEntry,
+      eveningEntry: req.body.eveningEntry
+    });
   }
 }
