@@ -41,5 +41,8 @@ router.get('/journals', journalCtrl.index);
 router.post('/journals', ensureLoggedIn, journalCtrl.create);
 router.get('/journals/new', ensureLoggedIn, journalCtrl.new);
 router.get('/journals/:id', journalCtrl.show);
+router.get('/journals/:id/edit', ensureLoggedIn, journalCtrl.edit);
+router.put('/journals/:id', ensureLoggedIn, journalCtrl.update);
+router.delete('/journals/:id', ensureLoggedIn, journalCtrl.deleteJournal);
 
 module.exports = router;

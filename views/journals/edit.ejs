@@ -1,0 +1,25 @@
+<%- include('../partials/header') %>
+
+<h2>Edit Journal Entry</h2>
+
+<form action="/journals/<%= journal._id %>?_method=PUT" method="POST">
+  <div>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" value="<%= journal.title %>" required>
+  </div>
+  <div>
+    <label for="morningEntry">Morning Entry:</label>
+    <textarea id="morningEntry" name="morningEntry" rows="4" required><%= journal.morningEntry %></textarea>
+  </div>
+  <div>
+    <label for="noonEntry">Noon Entry:</label>
+    <textarea id="noonEntry" name="noonEntry" rows="4" required><%= journal.noonEntry %></textarea>
+  </div>
+  <div>
+    <label for="eveningEntry">Evening Entry:</label>
+    <textarea id="eveningEntry" name="eveningEntry" rows="4" required><%= journal.eveningEntry %></textarea>
+  </div>
+  <button type="submit">Update Entry</button>
+</form>
+
+<%- include('../partials/footer') %>

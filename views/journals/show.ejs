@@ -39,6 +39,8 @@
           <td><%= review.createdAt.toDateString() %></td>
           <td><%= review.content %></td>
           <td><%= review.rating %></td>
+          <td><a href="/journals/<%= journal._id %>/edit">Edit</a></td>
+          <td><a href="/journals/<%= journal._id %>/delete">Delete</a></td>
         </tr>
       <% }) %>
     <% } %>

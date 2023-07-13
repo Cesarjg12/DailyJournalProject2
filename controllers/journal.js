@@ -4,7 +4,10 @@ module.exports = {
   index,
   show,
   new: newJournal,
-  create
+  create,
+  edit,
+  update,
+  deleteJournal
 };
 
 async function index(req, res) {
@@ -58,5 +61,43 @@ async function create(req, res) {
       noonEntry: req.body.noonEntry,
       eveningEntry: req.body.eveningEntry
     });
+  }
+}
+
+async function edit(req, res) {
+  try {
+    const journal = await Journal.findById(req.params.id);
+    if (!journal) {
+      throw new Error('Journal not found');
+    }
+    res.render('journals/edit', { title: 'Edit Journal', journal });
+  } catch (err) {
+    console.log(err);
+    res.render('error', { message: 'Error retrieving journal details', error: err });
+  }
+}
+
+async function update(req, res) {
+  try {
+    const journal = await Journal.findByIdAndUpdate(req.params.id, {
+      title: req.body.title,
+      morningEntry: req.body.morningEntry,
+      noonEntry: req.body.noonEntry,
+      eveningEntry: req.body.eveningEntry
+    });
+    res.redirect(`/journals/${journal._id}`);
+  } catch (err) {
+    console.log(err);
+    res.render('error', { message: 'Error updating journal', error: err });
+  }
+}
+
+async function deleteJournal(req, res) {
+  try {
+    await Journal.findByIdAndDelete(req.params.id);
+    res.redirect('/journals');
+  } catch (err) {
+    console.log(err);
+    res.render('error', { message: 'Error deleting journal', error: err });
   }
 }
