@@ -26,7 +26,7 @@
       <li>
         <img alt="avatar" src="<%= comment.userAvatar %>" referrerpolicy="no-referrer">
         <p><strong>User: </strong><%= comment.userName %></p>
-        <p><strong>Date: </strong><%= comment.createdAt.toDateString() %></p>
+        <p><strong>Date: </strong><%= comment.createdAt.toLocaleString() %></p>
         <p><strong>Comment: </strong><%= comment.content %></p>
       </li>
     <% }) %>
