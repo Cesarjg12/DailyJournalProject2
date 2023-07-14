@@ -25,9 +25,14 @@
     <% journal.comments.forEach(function(comment) { %>
       <li>
         <img alt="avatar" src="<%= comment.userAvatar %>" referrerpolicy="no-referrer">
-        <p><strong>User: </strong><%= comment.userName %></p>
-        <p><strong>Date: </strong><%= comment.createdAt.toLocaleString() %></p>
+        <p><strong>User: </strong><%= comment.user ? comment.user.userName : 'Unknown' %></p>
+        <p><strong>Date: </strong><%= comment.createdAt ? comment.createdAt.toLocaleString() : 'Unknown' %></p>
         <p><strong>Comment: </strong><%= comment.content %></p>
+        <% if (comment.user && comment.user._id.equals(user._id)) { %>
+          <form action="/journals/<%= journal._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+            <button type="submit">Delete</button>
+          </form>
+        <% } %>
       </li>
     <% }) %>
   </ul>

@@ -8,7 +8,8 @@ module.exports = {
   edit,
   update,
   deleteJournal,
-  addComment
+  addComment,
+  deleteComment
 };
 
 async function index(req, res) {
@@ -24,7 +25,7 @@ async function index(req, res) {
 
 async function show(req, res) {
   try {
-    const journal = await Journal.findById(req.params.id).populate('comments');
+    const journal = await Journal.findById(req.params.id).populate('comments.user');
     if (!journal) {
       throw new Error('Journal not found');
     }
@@ -122,5 +123,38 @@ async function addComment(req, res) {
   } catch (err) {
     console.log(err);
     res.render('error', { message: 'Error adding comment', error: err });
+  }
+}
+
+async function deleteComment(req, res) {
+  try {
+    const journalId = req.params.id;
+    const commentId = req.params.commentId;
+
+    const journal = await Journal.findById(journalId);
+
+    if (!journal) {
+      throw new Error('Journal not found');
+    }
+
+    const comment = journal.comments.find((c) => c._id.equals(commentId));
+
+    if (!comment) {
+      throw new Error('Comment not found');
+    }
+
+    // Checks that the comment is = to userxx
+    if (!comment.user.equals(req.user._id)) {
+      throw new Error('Unauthorized');
+    }
+
+    // Removes a comment from the array
+    journal.comments = journal.comments.filter((c) => !c._id.equals(commentId));
+    await journal.save();
+
+    res.redirect(`/journals/${journalId}`);
+  } catch (err) {
+    console.log(err);
+    res.render('error', { message: 'Error deleting comment', error: err });
   }
 }
