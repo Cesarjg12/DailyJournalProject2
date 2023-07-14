@@ -151,6 +151,7 @@ async function addComment(req, res) {
     };
     journal.comments.push(comment);
     await journal.save();
+    await journal.populate('comments.user').execPopulate();
     res.redirect(`/journals/${journal._id}`);
   } catch (err) {
     console.log(err);
