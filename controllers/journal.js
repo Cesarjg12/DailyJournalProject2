@@ -1,4 +1,5 @@
 const Journal = require('../models/journal');
+const User = require('../models/user');
 
 module.exports = {
   index,
@@ -25,10 +26,20 @@ async function index(req, res) {
 
 async function show(req, res) {
   try {
-    const journal = await Journal.findById(req.params.id).populate('comments.user');
+    const journal = await Journal.findById(req.params.id)
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'user',
+          model: 'User'
+        }
+      })
+      .populate('user');
+
     if (!journal) {
       throw new Error('Journal not found');
     }
+
     res.render('journals/show', { title: 'Journal Detail', journal });
   } catch (err) {
     console.log(err);
@@ -52,7 +63,8 @@ async function create(req, res) {
       title: req.body.title,
       morningEntry: req.body.morningEntry,
       noonEntry: req.body.noonEntry,
-      eveningEntry: req.body.eveningEntry
+      eveningEntry: req.body.eveningEntry,
+      user: req.user._id
     });
     res.redirect(`/journals/${journal._id}`);
   } catch (err) {
@@ -68,10 +80,17 @@ async function create(req, res) {
 
 async function edit(req, res) {
   try {
-    const journal = await Journal.findById(req.params.id);
+    const journal = await Journal.findById(req.params.id).populate('user');
+
     if (!journal) {
       throw new Error('Journal not found');
     }
+
+    // Check if user owns the journal
+    if (!journal.user || journal.user._id.toString() !== req.user._id.toString()) {
+      throw new Error('Unauthorized');
+    }
+
     res.render('journals/edit', { title: 'Edit Journal', journal });
   } catch (err) {
     console.log(err);
@@ -96,7 +115,20 @@ async function update(req, res) {
 
 async function deleteJournal(req, res) {
   try {
-    await Journal.findByIdAndDelete(req.params.id);
+    const journalId = req.params.id;
+
+    const journal = await Journal.findById(journalId);
+
+    if (!journal) {
+      throw new Error('Journal not found');
+    }
+
+    // Check if user owns the journal
+    if (!journal.user.equals(req.user._id)) {
+      throw new Error('Unauthorized');
+    }
+
+    await Journal.findByIdAndDelete(journalId);
     res.redirect('/journals');
   } catch (err) {
     console.log(err);
@@ -143,7 +175,7 @@ async function deleteComment(req, res) {
       throw new Error('Comment not found');
     }
 
-    // Checks that the comment is = to userxx
+    // Checks that the comment is = to same user
     if (!comment.user.equals(req.user._id)) {
       throw new Error('Unauthorized');
     }
