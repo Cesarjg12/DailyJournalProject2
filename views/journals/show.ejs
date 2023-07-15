@@ -17,6 +17,11 @@
   <p><%= journal.eveningEntry %></p>
 </div>
 
+<div>
+  <p><strong>Created by: </strong><%= journal.user ? journal.user.name : 'Unknown' %></p>
+  <p><strong>Created at: </strong><%= journal.createdAt ? journal.createdAt.toLocaleString() : 'Unknown' %></p>
+</div>
+
 <h3>Comments</h3>
 <% if (journal.comments.length === 0) { %>
   <p>No comments yet</p>

@@ -34,13 +34,14 @@ async function show(req, res) {
           model: 'User'
         }
       })
-      .populate('user');
+      .populate('user')
+      .exec();
 
     if (!journal) {
       throw new Error('Journal not found');
     }
 
-    res.render('journals/show', { title: 'Journal Detail', journal });
+    res.render('journals/show', { title: 'Journal Detail', journal, user: req.user });
   } catch (err) {
     console.log(err);
     res.render('error', { message: 'Error retrieving journal details', error: err });
@@ -151,13 +152,17 @@ async function addComment(req, res) {
     };
     journal.comments.push(comment);
     await journal.save();
+
     await journal.populate('comments.user').execPopulate();
+    const populatedComment = journal.comments[journal.comments.length - 1];
+
     res.redirect(`/journals/${journal._id}`);
   } catch (err) {
     console.log(err);
     res.render('error', { message: 'Error adding comment', error: err });
   }
 }
+
 
 async function deleteComment(req, res) {
   try {
