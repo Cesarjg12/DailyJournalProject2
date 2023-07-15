@@ -52,11 +52,13 @@
   <button type="submit">Add Comment</button>
 </form>
 
-<div>
-  <a href="/journals/<%= journal._id %>/edit">Edit Journal</a>
-  <form action="/journals/<%= journal._id %>?_method=DELETE" method="POST">
-    <button type="submit">Delete Journal</button>
-  </form>
-</div>
+<% if (user && journal.user && journal.user._id.equals(user._id)) { %>
+  <div>
+    <a href="/journals/<%= journal._id %>/edit">Edit Journal</a>
+    <form action="/journals/<%= journal._id %>?_method=DELETE" method="POST">
+      <button type="submit">Delete Journal</button>
+    </form>
+  </div>
+<% } %>
 
 <%- include('../partials/footer') %>
