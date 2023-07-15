@@ -139,22 +139,27 @@ async function deleteJournal(req, res) {
 
 async function addComment(req, res) {
   try {
-    const journal = await Journal.findById(req.params.id);
+    const { id } = req.params;
+    const { content } = req.body;
+
+    const journal = await Journal.findByIdAndUpdate(
+      id,
+      {
+        $push: {
+          comments: {
+            content,
+            user: req.user._id,
+            userName: req.user.name,
+            userAvatar: req.user.avatar,
+          },
+        },
+      },
+      { new: true }
+    ).populate('comments.user');
+
     if (!journal) {
       throw new Error('Journal not found');
     }
-    const { content } = req.body;
-    const comment = {
-      content,
-      user: req.user._id,
-      userName: req.user.name,
-      userAvatar: req.user.avatar
-    };
-    journal.comments.push(comment);
-    await journal.save();
-
-    await journal.populate('comments.user').execPopulate();
-    const populatedComment = journal.comments[journal.comments.length - 1];
 
     res.redirect(`/journals/${journal._id}`);
   } catch (err) {
