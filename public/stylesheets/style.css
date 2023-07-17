@@ -18,6 +18,25 @@ a {
   height: 30px;
 }
 
+.journal-header {
+  display: flex;
+  align-items: center;
+}
+
+.journal-header h2 {
+  margin-right: auto;
+}
+
+.journal-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.journal-buttons a,
+.journal-buttons form {
+  margin-left: 10px;
+}
+
 review-user {
   display: flex;
   justify-content: center;

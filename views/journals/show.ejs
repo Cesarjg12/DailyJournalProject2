@@ -1,6 +1,16 @@
 <%- include('../partials/header') %>
 
-<h2><%= journal.title %></h2>
+<div class="journal-header">
+  <h2><%= journal.title %></h2>
+  <% if (user && journal.user && journal.user._id.equals(user._id)) { %>
+    <div class="journal-buttons">
+      <a href="/journals/<%= journal._id %>/edit">Edit Journal</a>
+      <form action="/journals/<%= journal._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete Journal</button>
+      </form>
+    </div>
+  <% } %>
+</div>
 
 <div>
   <h3>Morning</h3>
@@ -65,14 +75,5 @@
   </div>
   <button type="submit">Add Comment</button>
 </form>
-
-<% if (user && journal.user && journal.user._id.equals(user._id)) { %>
-  <div>
-    <a href="/journals/<%= journal._id %>/edit">Edit Journal</a>
-    <form action="/journals/<%= journal._id %>?_method=DELETE" method="POST">
-      <button type="submit">Delete Journal</button>
-    </form>
-  </div>
-<% } %>
 
 <%- include('../partials/footer') %>
