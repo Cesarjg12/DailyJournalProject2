@@ -17,9 +17,16 @@
   <p><%= journal.eveningEntry %></p>
 </div>
 
-<div>
-  <p><strong>Created by: </strong><%= journal.user ? journal.user.name : 'Unknown' %></p>
-  <p><strong>Created at: </strong><%= journal.createdAt ? journal.createdAt.toLocaleString() : 'Unknown' %></p>
+<div class="user-info">
+  <% if (journal.user && journal.user.avatar) { %>
+    <div class="user-avatar-container">
+      <img alt="User Avatar" src="<%= journal.user.avatar %>" referrerpolicy="no-referrer" class="user-avatar">
+    </div>
+  <% } %>
+  <div class="user-details">
+    <p><strong>Created by: </strong><%= journal.user ? journal.user.name : 'Unknown' %></p>
+    <p><strong>Created at: </strong><%= journal.createdAt ? journal.createdAt.toLocaleString() : 'Unknown' %></p>
+  </div>
 </div>
 
 <h3>Comments</h3>
