@@ -40,7 +40,7 @@ review-user {
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding:  20px;
 }
 
 .nav-brand {
@@ -57,6 +57,7 @@ review-user {
 
 .nav-links li {
   margin-left: 10px;
+  margin-right: 10px;
 }
 
 .nav-links li:not(:last-child) {
@@ -74,4 +75,25 @@ review-user {
 
 .nav-links a:hover {
   color: #00B7FF;
+}
+
+ul.comments-list {
+  padding: 0;
+  margin: 0;
+}
+
+
+ul.comments-list li {
+  list-style: none;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+@media (max-width: 767px) {
+  .container {
+    padding: 10px; 
+  }
 }
