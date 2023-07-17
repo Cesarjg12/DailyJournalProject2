@@ -26,5 +26,52 @@ review-user {
 
 .review-user img {
   border-radius: 50%;
-  height: 40px;
+  height: 30px;
+}
+
+.custom-nav {
+  background-color: #f2f2f2;
+  padding: 10px 0;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.nav-brand {
+  font-size: 24px;
+  color: #333;
+  text-decoration: none;
+}
+
+.nav-links {
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin-left: 10px;
+}
+
+.nav-links li:not(:last-child) {
+  margin-right: 10px; 
+}
+
+.nav-links li:last-child {
+  margin-left: auto; 
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-links a:hover {
+  color: #00B7FF;
 }

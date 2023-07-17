@@ -1,25 +1,30 @@
 <%- include('../partials/header') %>
 
-<h2>Create New Journal Entry</h2>
-
-<form action="/journals" method="POST">
-  <div>
-    <label for="title">Journal Title:</label>
-    <input type="text" id="title" name="title" required>
+<div class="container my-4">
+  <div class="row">
+    <div class="col-lg-6">
+      <h2>Create New Journal Entry</h2>
+      <form action="/journals" method="POST">
+        <div class="form-group">
+          <label for="title">Journal Title:</label>
+          <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+          <label for="morningEntry">Morning Entry:</label>
+          <textarea class="form-control" id="morningEntry" name="morningEntry" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="noonEntry">Noon Entry:</label>
+          <textarea class="form-control" id="noonEntry" name="noonEntry" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="eveningEntry">Evening Entry:</label>
+          <textarea class="form-control" id="eveningEntry" name="eveningEntry" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Entry</button>
+      </form>
+    </div>
   </div>
-  <div>
-    <label for="morningEntry">Morning Entry:</label>
-    <textarea id="morningEntry" name="morningEntry" rows="4" required></textarea>
-  </div>
-  <div>
-    <label for="noonEntry">Noon Entry:</label>
-    <textarea id="noonEntry" name="noonEntry" rows="4" required></textarea>
-  </div>
-  <div>
-    <label for="eveningEntry">Evening Entry:</label>
-    <textarea id="eveningEntry" name="eveningEntry" rows="4" required></textarea>
-  </div>
-  <button type="submit">Create Entry</button>
-</form>
+</div>
 
 <%- include('../partials/footer') %>

@@ -30,8 +30,13 @@
     <% journal.comments.forEach(function(comment) { %>
       <li>
         <img alt="avatar" src="<%= comment.userAvatar %>" referrerpolicy="no-referrer">
-        <p><strong>User: </strong><%= comment.user ? comment.user.name : 'Unknown' %></p>
-        <p><strong>Date: </strong><%= comment.createdAt ? comment.createdAt.toLocaleString() : 'Unknown' %></p>
+        <% if (comment.user) { %>
+          <p><strong>User: </strong><%= comment.user.name %></p>
+          <p><strong>Date: </strong><%= comment.createdAt ? comment.createdAt.toLocaleString() : 'Unknown' %></p>
+        <% } else { %>
+          <p><strong>User: </strong>Unknown</p>
+          <p><strong>Date: </strong>Unknown</p>
+        <% } %>
         <p><strong>Comment: </strong><%= comment.content %></p>
         <% if (comment.user && comment.user._id.equals(user._id)) { %>
           <form action="/journals/<%= journal._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
