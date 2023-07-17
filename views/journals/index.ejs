@@ -3,9 +3,9 @@
 <table id="list">
   <thead>
     <tr>
-      <th>Morning</th>
-      <th>Noon</th>
-      <th>Evening</th>
+      <th>Journal title</th>
+      <th></th>
+      <th>Journal info</th>
     </tr>
   </thead>
   <tbody>
@@ -13,7 +13,7 @@
       <tr>
         <td><%= m.title %></td>
         <td><%= m.releaseYear %></td>
-        <td><a href="/journals/<%= m._id %>">DETAILS</a></td>
+        <td><a href="/journals/<%= m._id %>">Click to see journal</a></td>
       </tr>
     <% }); %>
   </tbody>
