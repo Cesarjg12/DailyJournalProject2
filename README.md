@@ -3,7 +3,7 @@
 
 ---
 
-*Link to App
+## Link to App
 [Daily Journal](https://dailyjournal-6aaaa9a51646.herokuapp.com/)
 
 ---
@@ -27,7 +27,7 @@ Logging in will allow you to see other user's journals as well as comment on the
 ---
 
 ## Code Preview
-'''js
+```js
 const commentSchema = new Schema({
   content: {
     type: String,
@@ -50,7 +50,7 @@ const commentSchema = new Schema({
   timestamps: true
 });
 
-'''
+```
 
 ---
 
