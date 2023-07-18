@@ -3,7 +3,7 @@
 
 ---
 
-**Link to App
+*Link to App
 [Daily Journal](https://dailyjournal-6aaaa9a51646.herokuapp.com/)
 
 ---
@@ -15,7 +15,7 @@
 ---
 
 ## Logged In
-*Logging in will allow you to see other user's journals as well as comment on them. You can make your own journal as well.
+Logging in will allow you to see other user's journals as well as comment on them. You can make your own journal as well.
 
 ![Journal Page](public/images/Journals.png)
 
@@ -49,6 +49,7 @@ const commentSchema = new Schema({
 }, {
   timestamps: true
 });
+
 '''
 
 ---
