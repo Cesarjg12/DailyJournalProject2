@@ -1,22 +1,27 @@
 <%- include('../partials/header') %>
 
-<table id="list">
-  <thead>
-    <tr>
-      <th>Journal title</th>
-      <th></th>
-      <th>Journal info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% journals.forEach(function(m) { %>
+<div class="container mt-4">
+  <table id="list" class="table table-bordered table-striped">
+    <thead>
       <tr>
-        <td><%= m.title %></td>
-        <td><%= m.releaseYear %></td>
-        <td><a href="/journals/<%= m._id %>">Click to see</a></td>
+        <th>Journal title</th>
+        <th>Journal info</th>
       </tr>
-    <% }); %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% journals.forEach(function(m) { %>
+        <tr>
+          <td><%= m.title %></td>
+          <td>
+            <%= m.releaseYear %>
+            <a href="/journals/<%= m._id %>">
+              <button type="button" class="btn btn-outline-info btn-sm">Click to see</button>
+            </a>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
 
 <%- include('../partials/footer') %>
