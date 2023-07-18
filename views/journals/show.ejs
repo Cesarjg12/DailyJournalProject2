@@ -12,19 +12,32 @@
   <% } %>
 </div>
 
-<div>
-  <h3>Morning</h3>
-  <p><%= journal.morningEntry %></p>
+<div class="row">
+  <div class="col-md-4 mb-3">
+    <div class="card border-primary">
+      <div class="card-header">Morning Entry</div>
+      <div class="card-body">
+        <p class="card-text"><%= journal.morningEntry %></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="card border-warning">
+      <div class="card-header">Noon Entry</div>
+      <div class="card-body">
+        <p class="card-text"><%= journal.noonEntry %></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="card border-dark">
+      <div class="card-header">Evening Entry</div>
+      <div class="card-body">
+        <p class="card-text"><%= journal.eveningEntry %></p>
+      </div>
+    </div>
+  </div>
 </div>
-
-<div>
-  <h3>Noon</h3>
-  <p><%= journal.noonEntry %></p>
-</div>
-
-<div>
-  <h3>Evening</h3>
-  <p><%= journal.eveningEntry %></p>
 </div>
 
 <div class="user-info">
